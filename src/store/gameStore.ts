@@ -1,6 +1,5 @@
 import { create } from 'zustand';
-import { v4 as uuidv4 } from 'uuid';
-import type { GameState, Player, Room, ChatMessage, PlayerColor } from '../types';
+import type { ChatMessage, GameState, PlayerColor, Room } from '../types';
 
 interface LocalPlayer {
   id: string;
@@ -22,7 +21,7 @@ function initLocalPlayer(): LocalPlayer {
   } catch {
     // ignore corrupt storage and fall through to a fresh player
   }
-  const player: LocalPlayer = { id: uuidv4(), name: '', color: 'cyan' };
+  const player: LocalPlayer = { id: crypto.randomUUID(), name: '', color: 'cyan' };
   localStorage.setItem('cr_player', JSON.stringify(player));
   return player;
 }
@@ -79,13 +78,11 @@ export const useGameStore = create<GameStore>((set) => ({
   setGameState: (gameState) => set({ gameState }),
 
   isExploding: new Set(),
-  addExplosion: (key) =>
-    set((s) => ({ isExploding: new Set([...s.isExploding, key]) })),
+  addExplosion: (key) => set((s) => ({ isExploding: new Set([...s.isExploding, key]) })),
   clearExplosions: () => set({ isExploding: new Set() }),
 
   messages: [],
-  addMessage: (msg) =>
-    set((s) => ({ messages: [...s.messages.slice(-99), msg] })),
+  addMessage: (msg) => set((s) => ({ messages: [...s.messages.slice(-99), msg] })),
 
   isConnected: false,
   setConnected: (isConnected) => set({ isConnected }),

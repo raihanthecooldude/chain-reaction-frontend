@@ -1,0 +1,140 @@
+.boardWrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.board {
+  display: grid;
+  gap: 2px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(0, 200, 255, 0.15);
+  border-radius: 6px;
+  padding: 4px;
+  width: 100%;
+  max-width: min(96vw, calc(var(--cols) * 52px));
+}
+
+.cell {
+  aspect-ratio: 1;
+  background: rgba(8, 14, 26, 0.9);
+  border: 1px solid rgba(0, 200, 255, 0.07);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: border-color 0.15s, background 0.15s;
+  cursor: default;
+  overflow: visible;
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.corner {
+  border-color: rgba(0, 200, 255, 0.12);
+  background: rgba(0, 200, 255, 0.02);
+}
+
+.edge {
+  border-color: rgba(0, 200, 255, 0.09);
+}
+
+.canPlace {
+  cursor: pointer;
+}
+
+.canPlace:hover {
+  border-color: rgba(0, 200, 255, 0.3);
+  background: rgba(0, 200, 255, 0.04);
+}
+
+.cell[style*='--cell-color'] {
+  border-color: color-mix(in srgb, var(--cell-color) 25%, transparent);
+  background: color-mix(in srgb, var(--cell-color) 6%, rgba(8, 14, 26, 0.9));
+}
+
+.exploding {
+  animation: cell-explode 0.5s ease forwards;
+  z-index: 10;
+}
+
+@keyframes cell-explode {
+  0% { transform: scale(1); filter: brightness(1); }
+  30% { transform: scale(1.4); filter: brightness(3) saturate(2); }
+  60% { transform: scale(0.85); filter: brightness(2); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+/* Atom container */
+.atomContainer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Base atom style */
+.atom {
+  position: absolute;
+  width: clamp(5px, 1.1vw, 10px);
+  height: clamp(5px, 1.1vw, 10px);
+  border-radius: 50%;
+  will-change: transform;
+}
+
+/* 1 atom: center */
+.atom1 {
+  animation: orbit1 1.6s linear infinite;
+}
+/* 2 atoms: offset pair */
+.atom2 {
+  animation: orbit2 1.6s linear infinite;
+}
+.atom3 {
+  animation: orbit3 1.8s linear infinite;
+}
+.atom4 {
+  animation: orbit4 1.8s linear infinite;
+}
+
+@keyframes orbit1 {
+  from { transform: rotate(0deg) translateX(clamp(4px, 0.8vw, 8px)) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(clamp(4px, 0.8vw, 8px)) rotate(-360deg); }
+}
+@keyframes orbit2 {
+  from { transform: rotate(180deg) translateX(clamp(4px, 0.8vw, 8px)) rotate(-180deg); }
+  to { transform: rotate(540deg) translateX(clamp(4px, 0.8vw, 8px)) rotate(-540deg); }
+}
+@keyframes orbit3 {
+  from { transform: rotate(90deg) translateX(clamp(6px, 1.2vw, 11px)) rotate(-90deg); }
+  to { transform: rotate(450deg) translateX(clamp(6px, 1.2vw, 11px)) rotate(-450deg); }
+}
+@keyframes orbit4 {
+  from { transform: rotate(270deg) translateX(clamp(6px, 1.2vw, 11px)) rotate(-270deg); }
+  to { transform: rotate(630deg) translateX(clamp(6px, 1.2vw, 11px)) rotate(-630deg); }
+}
+
+.atomExplode {
+  animation: atom-burst 0.5s ease forwards !important;
+}
+
+@keyframes atom-burst {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(3); opacity: 0.8; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+.criticalWarning {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: clamp(7px, 1.1vw, 10px);
+  font-weight: bold;
+  font-family: var(--font-mono);
+  animation: pulse-glow 0.8s ease infinite;
+  pointer-events: none;
+}

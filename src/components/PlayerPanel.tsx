@@ -7,22 +7,15 @@ interface PlayerPanelProps {
   players: Player[]
   currentPlayerIndex: number
   localPlayerId: string
-  turnCount: number
 }
 
 export default function PlayerPanel({
   players,
   currentPlayerIndex,
   localPlayerId,
-  turnCount,
 }: PlayerPanelProps) {
   return (
     <div className={styles.panel}>
-      <div className={styles.turnInfo}>
-        <span className={styles.turnLabel}>TURN</span>
-        <span className={styles.turnNum}>{turnCount}</span>
-      </div>
-
       <div className={styles.list}>
         {players.map((player, i) => {
           const isActive = i === currentPlayerIndex

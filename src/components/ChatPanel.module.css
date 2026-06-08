@@ -99,3 +99,23 @@
 .sendBtn:hover {
   background: rgba(0,200,255,0.2);
 }
+
+/* ---------- Mobile drawer ---------- */
+@media (max-width: 768px) {
+  .panel {
+    height: 44dvh;
+    max-height: 380px;
+    border-color: var(--border-bright);
+  }
+
+  /* 16px avoids iOS auto-zoom on focus */
+  .input {
+    font-size: 16px;
+    padding: 9px 12px;
+  }
+
+  .sendBtn {
+    padding: 9px 16px;
+    font-size: 0.85rem;
+  }
+}

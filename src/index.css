@@ -50,6 +50,19 @@ body {
   flex-direction: column;
 }
 
+/* On phones, let tall pages (Home / Lobby) scroll the document.
+   The game screen stays a self-contained 100dvh view. */
+@media (max-width: 768px) {
+  html, body {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  #root {
+    height: auto;
+    min-height: 100%;
+  }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg2); }

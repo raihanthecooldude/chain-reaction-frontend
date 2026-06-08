@@ -6,30 +6,6 @@
   max-width: 200px;
 }
 
-.turnInfo {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 12px;
-  background: rgba(0,200,255,0.05);
-  border: 1px solid var(--border-bright);
-  border-radius: var(--radius);
-}
-
-.turnLabel {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
-  letter-spacing: 0.2em;
-}
-
-.turnNum {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--accent);
-  font-weight: 700;
-}
-
 .list {
   display: flex;
   flex-direction: column;
@@ -111,4 +87,45 @@
   border-radius: 50%;
   animation: pulse-glow 1s ease infinite;
   flex-shrink: 0;
+}
+
+/* ---------- Mobile: horizontal scrolling strip ---------- */
+@media (max-width: 768px) {
+  .panel {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .list {
+    flex-direction: row;
+    gap: 6px;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .row {
+    flex-shrink: 0;
+    padding: 6px 10px;
+    gap: 7px;
+  }
+
+  .info {
+    gap: 0;
+  }
+
+  .name {
+    font-size: 0.8rem;
+    max-width: 96px;
+  }
+
+  .dead {
+    display: none;
+  }
 }

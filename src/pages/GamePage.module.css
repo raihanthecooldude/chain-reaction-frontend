@@ -1,5 +1,6 @@
 .page {
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -207,6 +208,7 @@
 
 .loading {
   height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -224,4 +226,98 @@
   border-top-color: var(--accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+}
+
+/* Chat holder: plain wrapper on desktop, slide-up drawer on mobile */
+.chatHolder {
+  display: contents;
+}
+
+/* Floating chat toggle — mobile only */
+.chatFab {
+  display: none;
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 250;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: var(--accent);
+  background: linear-gradient(135deg, rgba(0,200,255,0.22), rgba(176,59,255,0.16));
+  border: 1px solid var(--border-bright);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 20px rgba(0,200,255,0.18);
+  backdrop-filter: blur(10px);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  .topBar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .turnBanner {
+    padding: 5px 12px;
+  }
+
+  .main {
+    flex-direction: column;
+  }
+
+  /* Sidebar becomes a transparent column: player strip on top, board below.
+     The chat holder is pulled out of flow into a bottom drawer. */
+  .sidebar {
+    width: 100%;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 8px 0;
+    border-right: none;
+    background: transparent;
+    overflow: visible;
+  }
+
+  .boardArea {
+    padding: 10px 8px;
+  }
+
+  .yourTurnHint {
+    font-size: 0.62rem;
+    text-align: center;
+    padding: 0 12px;
+  }
+
+  .chatFab {
+    display: flex;
+  }
+
+  /* Chat drawer */
+  .chatHolder {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    padding: 10px;
+    background: rgba(5,8,17,0.97);
+    border-top: 1px solid var(--border-bright);
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(12px);
+    transform: translateY(110%);
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .chatHolder.chatOpen {
+    transform: translateY(0);
+  }
+
+  .winnerCard {
+    padding: 36px 24px;
+  }
+  .winnerName {
+    font-size: 1.6rem;
+  }
 }

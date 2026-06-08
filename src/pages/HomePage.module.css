@@ -1,6 +1,7 @@
 .page {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,4 +340,30 @@
   font-size: 0.75rem;
   color: var(--text-muted);
   letter-spacing: 0.08em;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  .page {
+    align-items: flex-start;
+    overflow-y: auto;
+    padding: 32px 16px 48px;
+  }
+
+  .container {
+    gap: 24px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .card {
+    padding: 22px 18px;
+  }
+
+  /* 16px avoids iOS auto-zoom on focus */
+  .input {
+    font-size: 16px;
+  }
 }

@@ -15,6 +15,7 @@ export default function GamePage() {
   const { gameState, localPlayer, isExploding } = useGameStore()
   const { send } = useWebSocket()
   const [showWinner, setShowWinner] = useState(false)
+  const [chatOpen, setChatOpen] = useState(false)
 
   useEffect(() => {
     if (!localPlayer || !gameState) return
@@ -141,15 +142,17 @@ export default function GamePage() {
 
       {/* Main layout */}
       <div className={styles.main}>
-        {/* Left: player list */}
+        {/* Left: player list (mobile: horizontal strip above board) */}
         <div className={styles.sidebar}>
           <PlayerPanel
             players={gameState.players}
             currentPlayerIndex={gameState.currentPlayerIndex}
             localPlayerId={localPlayer.id}
-            turnCount={gameState.turnCount}
           />
-          <ChatPanel onSend={handleChat} />
+          {/* Desktop: inline below players. Mobile: slide-up drawer. */}
+          <div className={`${styles.chatHolder} ${chatOpen ? styles.chatOpen : ''}`}>
+            <ChatPanel onSend={handleChat} />
+          </div>
         </div>
 
         {/* Center: board */}
@@ -177,6 +180,15 @@ export default function GamePage() {
           )}
         </div>
       </div>
+
+      {/* Mobile-only: toggle chat drawer */}
+      <button
+        className={styles.chatFab}
+        onClick={() => setChatOpen((o) => !o)}
+        aria-label={chatOpen ? 'Close chat' : 'Open chat'}
+      >
+        {chatOpen ? '✕' : '💬'}
+      </button>
     </div>
   )
 }

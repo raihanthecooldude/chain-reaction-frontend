@@ -200,7 +200,7 @@ export default function HomePage() {
               <div className={styles.field}>
                 <label className={styles.label}>MAX PLAYERS: {maxPlayers}</label>
                 <div className={styles.sliderRow}>
-                  {[2,3,4,5,6,8].map((n) => (
+                  {[2,3,4,5,6,7].map((n) => (
                     <button
                       key={n}
                       className={`${styles.numBtn} ${maxPlayers === n ? styles.numSelected : ''}`}

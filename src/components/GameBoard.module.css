@@ -10,8 +10,12 @@
   display: grid;
   gap: 2px;
   background: rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(0, 200, 255, 0.15);
+  /* Red arena boundary */
+  border: 2px solid rgba(255, 59, 92, 0.7);
   border-radius: 6px;
+  box-shadow:
+    0 0 18px rgba(255, 59, 92, 0.35),
+    inset 0 0 14px rgba(255, 59, 92, 0.08);
   padding: 4px;
   width: 100%;
   max-width: min(96vw, calc(var(--cols) * 52px));

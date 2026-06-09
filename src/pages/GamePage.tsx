@@ -13,9 +13,25 @@ export default function GamePage() {
   const { roomCode } = useParams<{ roomCode: string }>()
   const navigate = useNavigate()
   const { gameState, localPlayer, isExploding } = useGameStore()
+  const unreadChat = useGameStore((s) => s.unreadChat)
+  const markChatViewed = useGameStore((s) => s.markChatViewed)
+  const setChatViewing = useGameStore((s) => s.setChatViewing)
   const { send } = useWebSocket()
   const [showWinner, setShowWinner] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
+
+  const toggleChat = () => {
+    const next = !chatOpen
+    setChatOpen(next)
+    // Opening the drawer counts as "seen"; closing stops the active-view state
+    // but also clears anything that arrived while it was open.
+    if (next) {
+      markChatViewed()
+    } else {
+      markChatViewed()
+      setChatViewing(false)
+    }
+  }
 
   useEffect(() => {
     if (!localPlayer || !gameState) return
@@ -184,10 +200,13 @@ export default function GamePage() {
       {/* Mobile-only: toggle chat drawer */}
       <button
         className={styles.chatFab}
-        onClick={() => setChatOpen((o) => !o)}
+        onClick={toggleChat}
         aria-label={chatOpen ? 'Close chat' : 'Open chat'}
       >
         {chatOpen ? '✕' : '💬'}
+        {!chatOpen && unreadChat > 0 && (
+          <span className={styles.chatFabBadge}>{unreadChat > 9 ? '9+' : unreadChat}</span>
+        )}
       </button>
     </div>
   )

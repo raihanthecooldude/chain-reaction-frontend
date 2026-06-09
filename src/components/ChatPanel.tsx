@@ -9,6 +9,9 @@ interface ChatPanelProps {
 
 export default function ChatPanel({ onSend }: ChatPanelProps) {
   const messages = useGameStore((s) => s.messages)
+  const unreadChat = useGameStore((s) => s.unreadChat)
+  const markChatViewed = useGameStore((s) => s.markChatViewed)
+  const setChatViewing = useGameStore((s) => s.setChatViewing)
   const [input, setInput] = useState('')
   const bottomRef = useRef<HTMLDivElement>(null)
 
@@ -26,7 +29,12 @@ export default function ChatPanel({ onSend }: ChatPanelProps) {
   return (
     <div className={styles.panel}>
       <div className={styles.header}>
-        <span className={styles.title}>CHAT</span>
+        <span className={styles.title}>
+          CHAT
+          {unreadChat > 0 && (
+            <span className={styles.unreadBadge}>{unreadChat > 9 ? '9+' : unreadChat}</span>
+          )}
+        </span>
         <span className={styles.count}>{messages.length}</span>
       </div>
 
@@ -53,6 +61,8 @@ export default function ChatPanel({ onSend }: ChatPanelProps) {
           className={styles.input}
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onFocus={markChatViewed}
+          onBlur={() => setChatViewing(false)}
           placeholder="Say something..."
           maxLength={100}
           onKeyDown={(e) => {

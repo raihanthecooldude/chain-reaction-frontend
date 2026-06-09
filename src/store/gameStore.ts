@@ -47,6 +47,10 @@ interface GameStore {
   // Chat
   messages: ChatMessage[];
   addMessage: (msg: ChatMessage) => void;
+  unreadChat: number; // messages from others since the chat was last viewed
+  chatViewing: boolean; // input focused (desktop) or drawer open (mobile)
+  markChatViewed: () => void;
+  setChatViewing: (v: boolean) => void;
 
   // Connection
   isConnected: boolean;
@@ -82,7 +86,18 @@ export const useGameStore = create<GameStore>((set) => ({
   clearExplosions: () => set({ isExploding: new Set() }),
 
   messages: [],
-  addMessage: (msg) => set((s) => ({ messages: [...s.messages.slice(-99), msg] })),
+  addMessage: (msg) =>
+    set((s) => {
+      const seen = s.chatViewing || msg.playerId === s.localPlayer.id;
+      return {
+        messages: [...s.messages.slice(-99), msg],
+        unreadChat: seen ? s.unreadChat : s.unreadChat + 1,
+      };
+    }),
+  unreadChat: 0,
+  chatViewing: false,
+  markChatViewed: () => set({ unreadChat: 0, chatViewing: true }),
+  setChatViewing: (v) => set((s) => ({ chatViewing: v, unreadChat: v ? 0 : s.unreadChat })),
 
   isConnected: false,
   setConnected: (isConnected) => set({ isConnected }),
@@ -102,6 +117,8 @@ export const useGameStore = create<GameStore>((set) => ({
       gameState: null,
       isExploding: new Set(),
       messages: [],
+      unreadChat: 0,
+      chatViewing: false,
       error: null,
       notice: null,
       isSearching: false,

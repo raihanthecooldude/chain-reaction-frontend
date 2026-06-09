@@ -253,6 +253,27 @@
   backdrop-filter: blur(10px);
 }
 
+.chatFabBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background: #ff3b5c;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #0a0e16;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
 /* ---------- Mobile ---------- */
 @media (max-width: 768px) {
   .topBar {

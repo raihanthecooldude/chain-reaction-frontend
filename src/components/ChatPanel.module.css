@@ -29,6 +29,24 @@
   color: var(--text-muted);
 }
 
+.unreadBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: var(--accent, #00c8ff);
+  color: #001018;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+}
+
 .messages {
   flex: 1;
   overflow-y: auto;

@@ -8,7 +8,7 @@ import ErrorToast from './components/ErrorToast'
 import NoticeToast from './components/NoticeToast'
 
 export default function App() {
-  // localPlayer is initialized synchronously in the store (see initLocalPlayer),
+  // localPlayer is initialized synchronously in the store (initLocalPlayer),
   // so the WebSocket below always connects with a real player id.
   useWebSocket() // establish connection globally
 

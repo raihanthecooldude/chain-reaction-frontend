@@ -143,6 +143,19 @@ export function useWebSocket() {
       initialized = true;
       connect();
     }
+
+    // On mobile, backgrounding the tab (e.g. switching to WhatsApp to share a code)
+    // freezes timers and usually drops the socket. Reconnect the moment we return so
+    // the user rejoins their room immediately instead of waiting for the retry timer.
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (!socket || socket.readyState === WebSocket.CLOSED) {
+        if (reconnectTimer) clearTimeout(reconnectTimer);
+        connect();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
   }, []);
   return { send };
 }

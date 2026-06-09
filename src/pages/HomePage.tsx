@@ -16,7 +16,7 @@ export default function HomePage() {
   const [mode, setMode] = useState<Mode>('home')
   const [name, setName] = useState(localPlayer?.name || '')
   const [roomCode, setRoomCode] = useState('')
-  const [maxPlayers, setMaxPlayers] = useState(4)
+  const [maxPlayers, setMaxPlayers] = useState(2)
   const [nameError, setNameError] = useState('')
 
   useEffect(() => {

@@ -79,9 +79,11 @@
   border-radius: var(--radius);
   transition: var(--transition);
 }
-.leaveBtn:hover {
-  background: rgba(255, 59, 59, 0.15);
-  border-color: var(--danger);
+@media (hover: hover) {
+  .leaveBtn:hover {
+    background: rgba(255, 59, 59, 0.15);
+    border-color: var(--danger);
+  }
 }
 
 .codeCard {
@@ -127,8 +129,10 @@
   transition: var(--transition);
   cursor: pointer;
 }
-.codeValue:hover {
-  opacity: 0.8;
+@media (hover: hover) {
+  .codeValue:hover {
+    opacity: 0.8;
+  }
 }
 
 .copyHint {
@@ -140,8 +144,10 @@
   transition: opacity 0.2s;
   vertical-align: middle;
 }
-.codeValue:hover .copyHint {
-  opacity: 1;
+@media (hover: hover) {
+  .codeValue:hover .copyHint {
+    opacity: 1;
+  }
 }
 
 .codeHint {
@@ -302,8 +308,10 @@
   color: #3bff6e;
   box-shadow: 0 0 20px rgba(59, 255, 110, 0.1);
 }
-.btnReady:hover {
-  box-shadow: 0 0 30px rgba(59, 255, 110, 0.25);
+@media (hover: hover) {
+  .btnReady:hover {
+    box-shadow: 0 0 30px rgba(59, 255, 110, 0.25);
+  }
 }
 
 .btnStart {
@@ -312,8 +320,10 @@
   color: var(--accent);
   box-shadow: 0 0 30px rgba(0, 200, 255, 0.15);
 }
-.btnStart:hover:not(:disabled) {
-  box-shadow: 0 0 40px rgba(0, 200, 255, 0.3);
+@media (hover: hover) {
+  .btnStart:hover:not(:disabled) {
+    box-shadow: 0 0 40px rgba(0, 200, 255, 0.3);
+  }
 }
 
 .btnDisabled {
@@ -384,8 +394,10 @@
     box-shadow 0.15s;
   cursor: pointer;
 }
-.colorBtn:hover:not(:disabled) {
-  transform: scale(1.15);
+@media (hover: hover) {
+  .colorBtn:hover:not(:disabled) {
+    transform: scale(1.15);
+  }
 }
 .colorSelected {
   border-color: white !important;

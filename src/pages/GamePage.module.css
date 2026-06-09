@@ -72,9 +72,11 @@
   transition: color 0.2s;
   border: 1px solid transparent;
 }
-.leaveBtn:hover {
-  color: var(--danger);
-  border-color: rgba(255,59,59,0.2);
+@media (hover: hover) {
+  .leaveBtn:hover {
+    color: var(--danger);
+    border-color: rgba(255,59,59,0.2);
+  }
 }
 
 .main {
@@ -201,9 +203,11 @@
   border-radius: var(--radius);
   transition: var(--transition);
 }
-.winnerBtn:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.3);
+@media (hover: hover) {
+  .winnerBtn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+  }
 }
 
 .loading {

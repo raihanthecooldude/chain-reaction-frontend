@@ -108,8 +108,10 @@
   font-size: 0.7rem;
   transition: var(--transition);
 }
-.sendBtn:hover {
-  background: rgba(0,200,255,0.2);
+@media (hover: hover) {
+  .sendBtn:hover {
+    background: rgba(0,200,255,0.2);
+  }
 }
 
 /* ---------- Mobile drawer ---------- */

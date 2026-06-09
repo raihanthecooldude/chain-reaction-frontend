@@ -106,7 +106,9 @@
   margin-bottom: 20px;
   transition: color 0.2s;
 }
-.back:hover { color: var(--accent); }
+@media (hover: hover) {
+  .back:hover { color: var(--accent); }
+}
 
 .cardTitle {
   font-family: var(--font-display);
@@ -175,7 +177,9 @@
   border: 2px solid transparent;
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.colorBtn:hover { transform: scale(1.15); }
+@media (hover: hover) {
+  .colorBtn:hover { transform: scale(1.15); }
+}
 .colorSelected {
   border-color: white;
   transform: scale(1.2);
@@ -203,7 +207,10 @@
   font-size: 0.9rem;
   transition: var(--transition);
 }
-.numBtn:hover { border-color: var(--accent); color: var(--accent); }
+/* Only on real pointers - avoids sticky :hover making a 2nd button look selected on touch */
+@media (hover: hover) {
+  .numBtn:hover { border-color: var(--accent); color: var(--accent); }
+}
 .numSelected {
   background: rgba(0,200,255,0.1);
   border-color: var(--accent);
@@ -235,7 +242,9 @@
   background: rgba(255,255,255,0);
   transition: background 0.2s;
 }
-.btn:hover::after { background: rgba(255,255,255,0.04); }
+@media (hover: hover) {
+  .btn:hover::after { background: rgba(255,255,255,0.04); }
+}
 
 .btnPrimary {
   background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(0,200,255,0.05));
@@ -243,9 +252,11 @@
   color: var(--accent);
   box-shadow: 0 0 20px rgba(0,200,255,0.1);
 }
-.btnPrimary:hover {
-  box-shadow: 0 0 30px rgba(0,200,255,0.25);
-  border-color: var(--accent);
+@media (hover: hover) {
+  .btnPrimary:hover {
+    box-shadow: 0 0 30px rgba(0,200,255,0.25);
+    border-color: var(--accent);
+  }
 }
 
 .btnSecondary {
@@ -253,9 +264,11 @@
   border: 1px solid rgba(176,59,255,0.3);
   color: #b03bff;
 }
-.btnSecondary:hover {
-  box-shadow: 0 0 20px rgba(176,59,255,0.2);
-  border-color: #b03bff;
+@media (hover: hover) {
+  .btnSecondary:hover {
+    box-shadow: 0 0 20px rgba(176,59,255,0.2);
+    border-color: #b03bff;
+  }
 }
 
 .btnAccent {
@@ -263,9 +276,11 @@
   border: 1px solid rgba(255,59,139,0.35);
   color: #ff3b8b;
 }
-.btnAccent:hover {
-  box-shadow: 0 0 20px rgba(255,59,139,0.2);
-  border-color: #ff3b8b;
+@media (hover: hover) {
+  .btnAccent:hover {
+    box-shadow: 0 0 20px rgba(255,59,139,0.2);
+    border-color: #ff3b8b;
+  }
 }
 
 .btnDanger {

@@ -35,7 +35,6 @@ export default function ChatPanel({ onSend }: ChatPanelProps) {
             <span className={styles.unreadBadge}>{unreadChat > 9 ? '9+' : unreadChat}</span>
           )}
         </span>
-        <span className={styles.count}>{messages.length}</span>
       </div>
 
       <div className={styles.messages}>

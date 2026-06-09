@@ -323,7 +323,9 @@
     right: 0;
     bottom: 0;
     z-index: 200;
-    padding: 10px;
+    /* Extra bottom padding lifts the input/send row clear of the ✕ FAB,
+       which floats at bottom-right (52px tall + 14px margin). */
+    padding: 10px 10px 76px;
     background: rgba(5,8,17,0.97);
     border-top: 1px solid var(--border-bright);
     box-shadow: 0 -8px 30px rgba(0,0,0,0.5);

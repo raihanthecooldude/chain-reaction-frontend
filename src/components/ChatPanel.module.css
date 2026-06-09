@@ -23,12 +23,6 @@
   letter-spacing: 0.2em;
 }
 
-.count {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  color: var(--text-muted);
-}
-
 .unreadBadge {
   display: inline-flex;
   align-items: center;

@@ -58,7 +58,10 @@ export default function GamePage() {
 
   const handleCellClick = (row: number, col: number) => {
     if (!isMyTurn) return
-    send('make_move', { roomCode, playerId: localPlayer.id, row, col })
+    const sent = send('make_move', { roomCode, playerId: localPlayer.id, row, col })
+    if (!sent) {
+      useGameStore.getState().setError('Connection lost - move not sent. Reconnecting...')
+    }
   }
 
   const handleChat = (message: string) => {

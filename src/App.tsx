@@ -6,6 +6,7 @@ import LobbyPage from './pages/LobbyPage'
 import GamePage from './pages/GamePage'
 import ErrorToast from './components/ErrorToast'
 import NoticeToast from './components/NoticeToast'
+import ThemeToggle from './components/ThemeToggle'
 
 export default function App() {
   // localPlayer is initialized synchronously in the store (initLocalPlayer),
@@ -15,6 +16,7 @@ export default function App() {
   return (
     <>
       <Analytics />
+      <ThemeToggle />
       <ErrorToast />
       <NoticeToast />
       <Routes>

@@ -127,14 +127,17 @@ export function connect() {
   };
 }
 
-export function send(type: WSMessageType, payload: unknown = {}) {
+// Returns true if the message was handed to an open socket, false if it was
+// dropped (socket closed / reconnecting) so callers can give the user feedback.
+export function send(type: WSMessageType, payload: unknown = {}): boolean {
   if (!socket || socket.readyState !== WebSocket.OPEN) {
     console.warn('[WS] Cannot send — socket state:', socket?.readyState ?? 'null');
-    return;
+    return false;
   }
   const msg = JSON.stringify({ type, payload });
   console.log('[WS] Sending:', type, payload);
   socket.send(msg);
+  return true;
 }
 
 export function useWebSocket() {

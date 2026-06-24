@@ -32,10 +32,6 @@ export default function LobbyPage() {
   const takenColors =
     room?.players.filter((p) => p.id !== localPlayer?.id).map((p) => p.color) ?? [];
 
-  const handleReady = () => {
-    send('player_ready', { playerId: localPlayer?.id, roomCode });
-  };
-
   const handleStart = () => {
     send('start_game', { roomCode });
   };
@@ -47,7 +43,6 @@ export default function LobbyPage() {
 
   const handleColorChange = (color: PlayerColor) => {
     if (takenColors.includes(color)) return;
-    if (myPlayer?.isReady) return; // can't change color after ready
     const updated = { ...localPlayer!, color };
     setLocalPlayer(updated);
     localStorage.setItem('cr_player', JSON.stringify(updated));
@@ -101,7 +96,9 @@ export default function LobbyPage() {
           <span className={styles.codeLabel}>ROOM CODE</span>
           <button className={styles.codeValue} onClick={copyCode} title='Click to copy'>
             {roomCode}
-            <span className={styles.copyHint}>{copied ? '✓ COPIED' : 'COPY'}</span>
+            <span className={`${styles.copyHint} ${copied ? styles.copiedHint : ''}`}>
+              {copied ? '✓ COPIED' : 'COPY'}
+            </span>
           </button>
           <p className={styles.codeHint}>Share this code with friends to invite them</p>
         </motion.div>
@@ -151,15 +148,6 @@ export default function LobbyPage() {
                       )}
                     </span>
                   </div>
-                  <div
-                    className={`${styles.readyBadge} ${player.isReady ? styles.isReady : ''}`}
-                  >
-                    {player.id === room.hostId
-                      ? 'HOST'
-                      : player.isReady
-                        ? 'READY'
-                        : 'WAITING'}
-                  </div>
                 </motion.div>
               ))}
 
@@ -175,8 +163,8 @@ export default function LobbyPage() {
           </div>
         </motion.div>
 
-        {/* Color picker for non-ready players */}
-        {myPlayer && !myPlayer.isReady && (
+        {/* Color picker (changeable until the game starts) */}
+        {myPlayer && (
           <motion.div
             className={styles.colorCard}
             initial={{ opacity: 0, y: 10 }}
@@ -206,7 +194,7 @@ export default function LobbyPage() {
             </div>
             {takenColors.includes(localPlayer?.color as PlayerColor) && (
               <p className={styles.colorWarning}>
-                ⚠ Your color is taken! Pick another before readying up.
+                ⚠ Your color is taken! Pick another before the game starts.
               </p>
             )}
           </motion.div>
@@ -219,17 +207,8 @@ export default function LobbyPage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.25 }}
         >
-          {!isHost && myPlayer && !myPlayer.isReady && (
-            <button
-              className={`${styles.btn} ${styles.btnReady} ${takenColors.includes(localPlayer?.color as PlayerColor) ? styles.btnDisabled : ''}`}
-              onClick={handleReady}
-              disabled={takenColors.includes(localPlayer?.color as PlayerColor)}
-            >
-              ✓ READY UP
-            </button>
-          )}
-          {!isHost && myPlayer?.isReady && (
-            <div className={styles.readyConfirm}>✓ You are ready!</div>
+          {!isHost && myPlayer && (
+            <div className={styles.waitingNote}>Waiting for the host to start the game…</div>
           )}
           {isHost && (
             <button

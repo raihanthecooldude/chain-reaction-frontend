@@ -4,30 +4,77 @@
   padding: 0;
 }
 
-:root {
-  --bg: #050811;
-  --bg2: #080e1a;
-  --bg3: #0d1525;
-  --surface: #0f1929;
-  --surface2: #162135;
-  --border: rgba(0, 200, 255, 0.12);
-  --border-bright: rgba(0, 200, 255, 0.35);
-  --accent: #00c8ff;
-  --accent2: #ff3b8b;
-  --accent3: #b03bff;
-  --text: #e8f4ff;
-  --text-dim: #6b8aaa;
-  --text-muted: #3a5470;
-  --success: #3bff6e;
-  --danger: #ff3b3b;
-  --font-display: 'Orbitron', monospace;
+/* ---- Design tokens. Dark is the default; [data-theme="light"] overrides below.
+   Both palettes are intentionally minimal and low-glare. ---- */
+:root,
+:root[data-theme='dark'] {
+  --bg: #15171c;
+  --bg2: #1a1d23;
+  --bg3: #1e2128;
+  --surface: #1e2128;
+  --surface2: #262a33;
+  /* Game board: a recessed "grout" between raised cell tiles. */
+  --board-bg: #101218;
+  --cell-bg: #262b34;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-bright: rgba(255, 255, 255, 0.18);
+  --accent: #4f8cff;
+  --accent-weak: rgba(79, 140, 255, 0.20);
+  --accent-text: #ffffff;
+  /* Secondary/tertiary accents add life to gradients/badges (teal + violet). */
+  --accent2: #2dd4bf;
+  --accent3: #a78bfa;
+  --text: #e7e9ec;
+  --text-dim: #a3aab5;
+  --text-muted: #6b7280;
+  --success: #5fcf80;
+  --success-weak: rgba(95, 207, 128, 0.16);
+  --danger: #f0686e;
+  --danger-weak: rgba(240, 104, 110, 0.16);
+  --arena: #e0566a;
+  --shadow-color: rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  --overlay: rgba(0, 0, 0, 0.6);
+
+  --font-display: 'Orbitron', sans-serif;
   --font-mono: 'Share Tech Mono', monospace;
   --font-body: 'Rajdhani', sans-serif;
-  --radius: 4px;
-  --radius-lg: 8px;
-  --glow-accent: 0 0 20px rgba(0, 200, 255, 0.4), 0 0 60px rgba(0, 200, 255, 0.1);
-  --glow-danger: 0 0 20px rgba(255, 59, 59, 0.5);
-  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius: 8px;
+  --radius-lg: 14px;
+  /* Glows are now soft neutral shadows (kept as vars so old refs stay valid). */
+  --glow-accent: var(--shadow);
+  --glow-danger: var(--shadow);
+  --transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme='light'] {
+  --bg: #f3f4f6;
+  --bg2: #eceef2;
+  --surface: #ffffff;
+  --bg3: #f7f8fa;
+  --surface2: #f4f5f8;
+  --board-bg: #dfe3e9;
+  --cell-bg: #ffffff;
+  --border: rgba(20, 30, 50, 0.10);
+  --border-bright: rgba(20, 30, 50, 0.20);
+  --accent: #2f6bed;
+  --accent-weak: rgba(47, 107, 237, 0.12);
+  --accent-text: #ffffff;
+  --accent2: #0d9488;
+  --accent3: #7c3aed;
+  --text: #1f2430;
+  --text-dim: #5a6472;
+  --text-muted: #98a1ad;
+  --success: #2e9e54;
+  --success-weak: rgba(46, 158, 84, 0.12);
+  --danger: #d64550;
+  --danger-weak: rgba(214, 69, 80, 0.10);
+  --arena: #d64550;
+  --shadow-color: rgba(20, 30, 50, 0.12);
+  --shadow-sm: 0 1px 2px rgba(20, 30, 50, 0.08);
+  --shadow: 0 6px 20px rgba(20, 30, 50, 0.10);
+  --overlay: rgba(20, 24, 33, 0.45);
 }
 
 html, body {
@@ -42,6 +89,12 @@ body {
   font-size: 16px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  /* Remove the gray flash when tapping interactive elements on mobile. */
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent pull-to-refresh / scroll chaining bouncing the whole page. */
+  overscroll-behavior-y: none;
+  /* Smooth fade when toggling light/dark. */
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 #root {
@@ -68,46 +121,21 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg2); }
 ::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
 
-/* Scan line overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.03) 2px,
-    rgba(0, 0, 0, 0.03) 4px
-  );
-  pointer-events: none;
-  z-index: 9999;
-}
-
-/* Grid background */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0, 200, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 200, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: 0;
-}
-
 button {
   font-family: var(--font-body);
   cursor: pointer;
   border: none;
   outline: none;
   font-size: 1rem;
+  /* Avoid the 300ms tap delay / double-tap zoom on fast taps. */
+  touch-action: manipulation;
 }
 
 input {
   font-family: var(--font-mono);
   outline: none;
+  /* 16px base avoids iOS Safari auto-zooming on focus (it zooms any input < 16px). */
+  font-size: 16px;
 }
 
 a {

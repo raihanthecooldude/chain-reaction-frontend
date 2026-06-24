@@ -6,7 +6,8 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 20px;
+  /* Base 20px plus device safe-area insets (notch / home indicator). */
+  padding: calc(20px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
 }
 
 .orb1, .orb2, .orb3 {
@@ -17,17 +18,17 @@
 }
 .orb1 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(0,200,255,0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--border) 0%, transparent 70%);
   top: -100px; left: -100px;
 }
 .orb2 {
   width: 350px; height: 350px;
-  background: radial-gradient(circle, rgba(176,59,255,0.1) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-weak) 0%, transparent 70%);
   bottom: -80px; right: -80px;
 }
 .orb3 {
   width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(255,59,139,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-weak) 0%, transparent 70%);
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -61,11 +62,11 @@
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.15em;
-  background: linear-gradient(135deg, #00c8ff 0%, #b03bff 50%, #ff3b8b 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent3) 50%, var(--accent2) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 30px rgba(0,200,255,0.4));
+  filter: drop-shadow(0 0 30px var(--border-bright));
 }
 
 .subtitle {
@@ -77,12 +78,12 @@
 
 .card {
   width: 100%;
-  background: rgba(15, 25, 41, 0.85);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 28px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 0 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  box-shadow: 0 0 40px var(--shadow-color), inset 0 1px 0 var(--border);
   position: relative;
   overflow: hidden;
 }
@@ -146,13 +147,13 @@
   color: var(--text);
   padding: 10px 14px;
   border-radius: var(--radius);
-  font-size: 0.95rem;
+  font-size: 16px; /* >=16px so iOS Safari doesn't auto-zoom on focus */
   width: 100%;
   transition: var(--transition);
 }
 .input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(0,200,255,0.1);
+  box-shadow: 0 0 0 2px var(--accent-weak);
 }
 .input::placeholder { color: var(--text-muted); }
 
@@ -181,7 +182,7 @@
   .colorBtn:hover { transform: scale(1.15); }
 }
 .colorSelected {
-  border-color: white;
+  border-color: var(--text);
   transform: scale(1.2);
 }
 
@@ -212,10 +213,10 @@
   .numBtn:hover { border-color: var(--accent); color: var(--accent); }
 }
 .numSelected {
-  background: rgba(0,200,255,0.1);
+  background: var(--accent-weak);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 0 10px rgba(0,200,255,0.2);
+  box-shadow: 0 0 10px var(--accent-weak);
 }
 
 .btn {
@@ -243,49 +244,49 @@
   transition: background 0.2s;
 }
 @media (hover: hover) {
-  .btn:hover::after { background: rgba(255,255,255,0.04); }
+  .btn:hover::after { background: var(--accent-weak); }
 }
 
 .btnPrimary {
-  background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(0,200,255,0.05));
-  border: 1px solid rgba(0,200,255,0.4);
+  background: linear-gradient(135deg, var(--accent-weak), var(--accent-weak));
+  border: 1px solid var(--border-bright);
   color: var(--accent);
-  box-shadow: 0 0 20px rgba(0,200,255,0.1);
+  box-shadow: 0 0 20px var(--accent-weak);
 }
 @media (hover: hover) {
   .btnPrimary:hover {
-    box-shadow: 0 0 30px rgba(0,200,255,0.25);
+    box-shadow: 0 0 30px var(--border-bright);
     border-color: var(--accent);
   }
 }
 
 .btnSecondary {
-  background: linear-gradient(135deg, rgba(176,59,255,0.1), rgba(176,59,255,0.03));
-  border: 1px solid rgba(176,59,255,0.3);
-  color: #b03bff;
+  background: linear-gradient(135deg, var(--accent-weak), var(--accent-weak));
+  border: 1px solid var(--accent-weak);
+  color: var(--accent3);
 }
 @media (hover: hover) {
   .btnSecondary:hover {
-    box-shadow: 0 0 20px rgba(176,59,255,0.2);
-    border-color: #b03bff;
+    box-shadow: 0 0 20px var(--accent-weak);
+    border-color: var(--accent3);
   }
 }
 
 .btnAccent {
-  background: linear-gradient(135deg, rgba(255,59,139,0.12), rgba(255,59,139,0.04));
-  border: 1px solid rgba(255,59,139,0.35);
-  color: #ff3b8b;
+  background: linear-gradient(135deg, var(--accent-weak), var(--accent-weak));
+  border: 1px solid var(--accent-weak);
+  color: var(--accent2);
 }
 @media (hover: hover) {
   .btnAccent:hover {
-    box-shadow: 0 0 20px rgba(255,59,139,0.2);
-    border-color: #ff3b8b;
+    box-shadow: 0 0 20px var(--accent-weak);
+    border-color: var(--accent2);
   }
 }
 
 .btnDanger {
-  background: rgba(255,59,59,0.1);
-  border: 1px solid rgba(255,59,59,0.3);
+  background: var(--danger-weak);
+  border: 1px solid var(--danger);
   color: var(--danger);
   margin-top: 8px;
 }
@@ -298,7 +299,7 @@
 .error {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: #ff6b6b;
+  color: var(--danger);
   margin-top: -4px;
 }
 
@@ -316,14 +317,14 @@
   position: absolute;
   width: 120px; height: 120px;
   border-radius: 50%;
-  border: 1.5px solid rgba(0,200,255,0.4);
+  border: 1.5px solid var(--border-bright);
   animation: radar-expand 2s ease-out infinite;
 }
 .radarRing2 {
   position: absolute;
   width: 120px; height: 120px;
   border-radius: 50%;
-  border: 1.5px solid rgba(0,200,255,0.25);
+  border: 1.5px solid var(--border-bright);
   animation: radar-expand 2s ease-out infinite 1s;
 }
 .radarDot {

@@ -54,8 +54,6 @@ export default function GameBoard({
             const key = `${r},${c}`;
             const isExploding = explodingCells.has(key);
             const critical = getCriticalMass(r, c, rows, cols);
-            const isCorner = (r === 0 || r === rows - 1) && (c === 0 || c === cols - 1);
-            const isEdge = r === 0 || r === rows - 1 || c === 0 || c === cols - 1;
 
             const canPlace =
               isMyTurn && !disabled && (!cell.owner || cell.owner === currentColor);
@@ -67,7 +65,6 @@ export default function GameBoard({
                 key={key}
                 className={`
                   ${styles.cell}
-                  ${isCorner ? styles.corner : isEdge ? styles.edge : ''}
                   ${canPlace ? styles.canPlace : ''}
                   ${isExploding ? styles.exploding : ''}
                 `}

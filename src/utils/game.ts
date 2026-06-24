@@ -4,30 +4,34 @@ export const PLAYER_COLORS: PlayerColor[] = [
   'red', 'blue', 'green', 'yellow', 'purple', 'orange', 'cyan', 'pink', 'lime', 'white'
 ];
 
+// Vivid, saturated player colors — these carry the board's energy. Tuned to stay
+// readable on BOTH the dark and light themes (yellow/lime are amber-leaning so
+// they don't wash out on white).
 export const COLOR_MAP: Record<PlayerColor, string> = {
-  red: '#ff3b3b',
-  blue: '#3b8bff',
-  green: '#3bff6e',
-  yellow: '#ffe03b',
-  purple: '#b03bff',
-  orange: '#ff8c3b',
-  cyan: '#3bffee',
-  pink: '#ff3bb8',
-  lime: '#b8ff3b',
-  white: '#ffffff',
+  red: '#ff3b4e',
+  blue: '#2f7dff',
+  green: '#18c964',
+  yellow: '#ffb800',
+  purple: '#9b5cff',
+  orange: '#ff7a18',
+  cyan: '#00c2d6',
+  pink: '#ff3d97',
+  lime: '#86d80f',
+  white: '#9aa4b2',
 };
 
+// Soft color glows for atoms/active cells — a bit of pop without going neon.
 export const COLOR_GLOW: Record<PlayerColor, string> = {
-  red: 'rgba(255,59,59,0.7)',
-  blue: 'rgba(59,139,255,0.7)',
-  green: 'rgba(59,255,110,0.7)',
-  yellow: 'rgba(255,224,59,0.7)',
-  purple: 'rgba(176,59,255,0.7)',
-  orange: 'rgba(255,140,59,0.7)',
-  cyan: 'rgba(59,255,238,0.7)',
-  pink: 'rgba(255,59,184,0.7)',
-  lime: 'rgba(184,255,59,0.7)',
-  white: 'rgba(255,255,255,0.7)',
+  red: 'rgba(255,59,78,0.5)',
+  blue: 'rgba(47,125,255,0.5)',
+  green: 'rgba(24,201,100,0.5)',
+  yellow: 'rgba(255,184,0,0.5)',
+  purple: 'rgba(155,92,255,0.5)',
+  orange: 'rgba(255,122,24,0.5)',
+  cyan: 'rgba(0,194,214,0.5)',
+  pink: 'rgba(255,61,151,0.5)',
+  lime: 'rgba(134,216,15,0.5)',
+  white: 'rgba(154,164,178,0.5)',
 };
 
 export function createEmptyBoard(rows: number, cols: number): Board {

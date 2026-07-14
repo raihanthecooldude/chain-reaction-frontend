@@ -111,9 +111,7 @@ export function connect() {
 
   socket.onerror = (e) => {
     console.error('[WS] Error:', e);
-    useGameStore
-      .getState()
-      .setError('Cannot connect to server. Is the backend running on port 8080?');
+    useGameStore.getState().setError('Cannot connect to server. Is the backend running');
   };
 
   socket.onmessage = (event) => {

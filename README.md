@@ -1,4 +1,4 @@
-# ⚛️ Chain Reaction - Frontend
+# Chain Reaction - Frontend
 
 The web client for Chain Reaction - a real-time multiplayer strategy game. It talks to the
 Chain Reaction Go WebSocket server (a **separate repository**) over a single persistent
